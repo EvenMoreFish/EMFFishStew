@@ -8,9 +8,11 @@ id: example
 # Should this item be disabled?
 disabled: false
 
-# Which competition should this item start?
+# Which competition(s) should this item start?
 # Uses the id found in the competition file.
-competition-id: mainCompetition
+# If a list is provided, it will randomly choose from the list.
+competition-id:
+  - mainCompetition
 
 # Should this item respect the minimum-players for this competition?
 respect-minimum-players: false

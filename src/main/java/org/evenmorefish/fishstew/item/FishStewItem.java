@@ -4,6 +4,7 @@ import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
 import com.oheers.fish.api.config.ConfigBase;
 import com.oheers.fish.api.registry.RegistryItem;
+import com.oheers.fish.competition.CompetitionQueue;
 import com.oheers.fish.competition.configs.CompetitionFile;
 import com.oheers.fish.items.ItemFactory;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -16,14 +17,19 @@ import org.evenmorefish.fishstew.FishStewPlugin;
 import org.evenmorefish.fishstew.utils.Keys;
 
 import java.io.File;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 import java.util.UUID;
 
 @SuppressWarnings("UnstableApiUsage")
 public class FishStewItem extends ConfigBase implements RegistryItem {
 
+    private static final Random RANDOM = new Random();
+
     private final @NotNull String id;
     private final @NotNull ItemFactory factory;
-    private final @NotNull CompetitionFile compFile;
+    private final @NotNull List<CompetitionFile> compFiles;
 
     public FishStewItem(@NotNull File file) throws InvalidConfigurationException {
         super(file, FishStewPlugin.getInstance(), false);
@@ -32,12 +38,16 @@ public class FishStewItem extends ConfigBase implements RegistryItem {
             throw new InvalidConfigurationException("ID does not exist for " + file.getName());
         }
         this.id = key;
-        CompetitionFile compFile = EvenMoreFish.getInstance().getCompetitionQueue().getItem(getConfig().getString("competition-id"));
-        if (compFile == null) {
-            throw new InvalidConfigurationException("Competition ID does not exist for " + file.getName());
-        }
-        this.compFile = compFile;
         this.factory = ItemFactory.itemFactory(getConfig());
+
+        List<CompetitionFile> compFiles = getCompetitionIds().stream()
+            .map(EvenMoreFish.getInstance().getCompetitionQueue()::getItem)
+            .filter(Objects::nonNull)
+            .toList();
+        if (compFiles.isEmpty()) {
+            throw new InvalidConfigurationException("Competition ID not configured properly for " + file.getName());
+        }
+        this.compFiles = compFiles;
     }
 
     @Override
@@ -75,8 +85,17 @@ public class FishStewItem extends ConfigBase implements RegistryItem {
         FishUtils.giveItem(getItem(player.getUniqueId()), player);
     }
 
-    public @NotNull CompetitionFile getCompFile() {
-        return this.compFile;
+    public @NotNull CompetitionFile getRandomCompFile() {
+        int index = RANDOM.nextInt(compFiles.size());
+        return compFiles.get(index);
+    }
+
+    private List<String> getCompetitionIds() {
+        String path = "competition-id";
+        if (getConfig().isList(path)) {
+            return getConfig().getStringList(path);
+        }
+        return List.of(getConfig().getString(path));
     }
 
 }

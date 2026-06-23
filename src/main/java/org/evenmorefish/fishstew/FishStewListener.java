@@ -40,7 +40,7 @@ public class FishStewListener implements Listener {
             MessageConfig.getInstance().getCompetitionActive().send(player);
             return;
         }
-        CompetitionFile file = fishStew.getCompFile();
+        CompetitionFile file = fishStew.getRandomCompFile();
         Competition competition = new Competition(file);
 
         // Optionally respect the competition player requirement
