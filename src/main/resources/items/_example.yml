@@ -25,3 +25,5 @@ item:
   displayname: <gray>Fish Stew
   lore:
     - <aqua>Right click to start a fishing contest.
+  # This only works on 1.21.3+, and allows the item to stack.
+  max-stack-size: 99
