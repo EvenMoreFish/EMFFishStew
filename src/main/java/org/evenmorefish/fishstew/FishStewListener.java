@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
+import org.checkerframework.checker.units.qual.A;
 import org.evenmorefish.fishstew.config.MessageConfig;
 import org.evenmorefish.fishstew.item.FishStewItem;
 import org.evenmorefish.fishstew.item.FishStewRegistry;
@@ -19,6 +20,9 @@ public class FishStewListener implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
+        if (!event.getAction().isRightClick()) {
+            return;
+        }
         Player player = event.getPlayer();
         if (!EquipmentSlot.HAND.equals(event.getHand())) {
             return;
