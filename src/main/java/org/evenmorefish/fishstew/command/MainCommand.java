@@ -5,6 +5,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
+import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
@@ -47,7 +48,8 @@ public class MainCommand {
                         Commands.argument("target", ArgumentTypes.player())
                             .executes(ctx -> {
                                 CommandSender sender = ctx.getSource().getSender();
-                                Player target = ctx.getArgument("target", Player.class);
+                                PlayerSelectorArgumentResolver resolver = ctx.getArgument("target", PlayerSelectorArgumentResolver.class);
+                                Player target = resolver.resolve(ctx.getSource()).getFirst();
                                 FishStewItem item = ctx.getArgument("item", FishStewItem.class);
                                 item.give(target);
                                 MessageConfig.getInstance().getStewReceived().send(target);
