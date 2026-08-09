@@ -20,6 +20,7 @@ dependencies {
     }
 
     implementation(libs.daisylib)
+    implementation(libs.bstats)
 }
 
 group = "org.evenmorefish"
@@ -52,6 +53,7 @@ tasks {
         archiveClassifier.set("")
 
         relocate("uk.firedev.daisylib", "org.evenmorefish.fishstew.libs.daisylib")
+        relocate("org.bstats", "org.evenmorefish.fishstew.libs.bstats")
     }
     withType<JavaCompile> {
         options.encoding = "UTF-8"
