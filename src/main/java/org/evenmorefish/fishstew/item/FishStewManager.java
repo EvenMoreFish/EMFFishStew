@@ -3,7 +3,7 @@ package org.evenmorefish.fishstew.item;
 import com.oheers.fish.api.FileUtil;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.evenmorefish.fishstew.FishStewPlugin;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.io.File;
 import java.util.List;
@@ -16,7 +16,7 @@ public class FishStewManager {
 
     private FishStewManager() {}
 
-    public static @NotNull FishStewManager getInstance() {
+    public static @NonNull FishStewManager getInstance() {
         return instance;
     }
 
@@ -38,7 +38,7 @@ public class FishStewManager {
         stewFiles.forEach(this::loadFile);
     }
 
-    private void loadFile(@NotNull File file) {
+    private void loadFile(@NonNull File file) {
         try {
             FishStewItem item = new FishStewItem(file);
             if (item.isDisabled()) {

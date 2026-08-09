@@ -12,8 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.evenmorefish.fishstew.FishStewPlugin;
 import org.evenmorefish.fishstew.utils.Keys;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.io.File;
 import java.util.List;
@@ -27,11 +27,11 @@ public class FishStewItem extends ConfigBase implements RegistryItem {
 
     private static final Random RANDOM = new Random();
 
-    private final @NotNull String id;
-    private final @NotNull ItemFactory factory;
-    private final @NotNull List<CompetitionFile> compFiles;
+    private final @NonNull String id;
+    private final @NonNull ItemFactory factory;
+    private final @NonNull List<CompetitionFile> compFiles;
 
-    public FishStewItem(@NotNull File file) throws InvalidConfigurationException {
+    public FishStewItem(@NonNull File file) throws InvalidConfigurationException {
         super(file, FishStewPlugin.getInstance(), false);
         String key = getConfig().getString("id");
         if (key == null) {
@@ -51,11 +51,11 @@ public class FishStewItem extends ConfigBase implements RegistryItem {
     }
 
     @Override
-    public @NotNull String getKey() {
+    public @NonNull String getKey() {
         return this.id;
     }
 
-    private @NotNull ItemStack getItem() {
+    private @NonNull ItemStack getItem() {
         return getItem(null);
     }
 
@@ -67,7 +67,7 @@ public class FishStewItem extends ConfigBase implements RegistryItem {
         return getConfig().getBoolean("respect-minimum-players", false);
     }
 
-    public @NotNull ItemStack getItem(@Nullable UUID uuid) {
+    public @NonNull ItemStack getItem(@Nullable UUID uuid) {
         ItemStack item;
         if (uuid == null) {
             item = this.factory.createItem();
@@ -81,11 +81,11 @@ public class FishStewItem extends ConfigBase implements RegistryItem {
         return item;
     }
 
-    public void give(@NotNull Player player) {
+    public void give(@NonNull Player player) {
         FishUtils.giveItem(getItem(player.getUniqueId()), player);
     }
 
-    public @NotNull CompetitionFile getRandomCompFile() {
+    public @NonNull CompetitionFile getRandomCompFile() {
         int index = RANDOM.nextInt(compFiles.size());
         return compFiles.get(index);
     }

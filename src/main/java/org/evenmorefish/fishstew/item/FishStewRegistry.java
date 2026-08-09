@@ -1,8 +1,8 @@
 package org.evenmorefish.fishstew.item;
 
 import com.oheers.fish.api.registry.EMFRegistry;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -15,32 +15,32 @@ public class FishStewRegistry implements EMFRegistry<FishStewItem> {
 
     private FishStewRegistry() {}
 
-    public static @NotNull FishStewRegistry getInstance() {
+    public static @NonNull FishStewRegistry getInstance() {
         return instance;
     }
 
     @Override
-    public @NotNull Map<String, FishStewItem> getRegistry() {
+    public @NonNull Map<String, FishStewItem> getRegistry() {
         return Map.copyOf(registry);
     }
 
     @Override
-    public @Nullable FishStewItem get(@NotNull String s) {
+    public @Nullable FishStewItem get(@NonNull String s) {
         return registry.get(s);
     }
 
     @Override
-    public @NotNull FishStewItem getOrDefault(@NotNull String s, @NotNull FishStewItem fishStewItem) {
+    public @NonNull FishStewItem getOrDefault(@NonNull String s, @NonNull FishStewItem fishStewItem) {
         return registry.getOrDefault(s, fishStewItem);
     }
 
     @Override
-    public boolean unregister(@NotNull String s) {
+    public boolean unregister(@NonNull String s) {
         return registry.remove(s) != null;
     }
 
     @Override
-    public boolean register(@NotNull FishStewItem value, boolean force) {
+    public boolean register(@NonNull FishStewItem value, boolean force) {
         if (!force && registry.containsKey(value.getKey())) {
             return false;
         }

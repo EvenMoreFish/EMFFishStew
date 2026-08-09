@@ -13,13 +13,13 @@ import org.bukkit.entity.Player;
 import org.evenmorefish.fishstew.FishStewPlugin;
 import org.evenmorefish.fishstew.config.MessageConfig;
 import org.evenmorefish.fishstew.item.FishStewItem;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 // Safe to suppress as the same API is stable in modern Paper.
 @SuppressWarnings("UnstableApiUsage")
 public class MainCommand {
 
-    public static @NotNull LiteralCommandNode<CommandSourceStack> get() {
+    public static @NonNull LiteralCommandNode<CommandSourceStack> get() {
         return Commands.literal("fishstew")
             .requires(stack -> stack.getSender().hasPermission("fishstew.command"))
             .then(give())

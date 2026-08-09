@@ -12,7 +12,7 @@ import io.papermc.paper.command.brigadier.argument.CustomArgumentType;
 import net.kyori.adventure.text.Component;
 import org.evenmorefish.fishstew.item.FishStewItem;
 import org.evenmorefish.fishstew.item.FishStewRegistry;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -32,15 +32,15 @@ public class FishStewArgument implements CustomArgumentType.Converted<FishStewIt
         return item;
     }
 
-    @NotNull
+    @NonNull
     @Override
     public ArgumentType<String> getNativeType() {
         return StringArgumentType.string();
     }
 
-    @NotNull
+    @NonNull
     @Override
-    public <S> CompletableFuture<Suggestions> listSuggestions(@NotNull CommandContext<S> context, @NotNull SuggestionsBuilder builder) {
+    public <S> CompletableFuture<Suggestions> listSuggestions(@NonNull CommandContext<S> context, @NonNull SuggestionsBuilder builder) {
         FishStewRegistry.getInstance().getRegistry().keySet().stream()
             .filter(name -> name.toLowerCase().startsWith(builder.getRemainingLowerCase()))
             .forEach(builder::suggest);

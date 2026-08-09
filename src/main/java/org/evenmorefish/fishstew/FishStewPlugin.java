@@ -8,7 +8,7 @@ import org.evenmorefish.fishstew.command.MainCommand;
 import org.evenmorefish.fishstew.config.MessageConfig;
 import org.evenmorefish.fishstew.item.FishStewManager;
 import org.evenmorefish.fishstew.reward.FishStewRewardType;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NonNull;
 import uk.firedev.daisylib.DaisyLib;
 import uk.firedev.daisylib.logging.ComponentLogging;
@@ -29,7 +29,7 @@ public final class FishStewPlugin extends JavaPlugin {
         INSTANCE = this;
     }
 
-    public static @NotNull FishStewPlugin getInstance() {
+    public static @NonNull FishStewPlugin getInstance() {
         if (INSTANCE == null) {
             throw new IllegalStateException(FishStewPlugin.class.getSimpleName() + " has not been assigned!");
         }
