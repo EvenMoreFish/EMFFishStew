@@ -1,8 +1,12 @@
 package org.evenmorefish.fishstew;
 
+import com.oheers.fish.api.Logging;
 import com.oheers.fish.api.events.EMFPluginReloadEvent;
+import com.oheers.fish.baits.manager.BaitManager;
 import com.oheers.fish.competition.Competition;
 import com.oheers.fish.competition.configs.CompetitionFile;
+import com.oheers.fish.fishing.rods.RodManager;
+import io.papermc.paper.event.server.ServerResourcesReloadedEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -67,6 +71,13 @@ public class FishStewListener implements Listener {
     public void onEMFReload(EMFPluginReloadEvent event) {
         FishStewPlugin plugin = FishStewPlugin.getInstance();
         plugin.getLogging().info("Detected EvenMoreFish reload. Reloading...");
+        plugin.reload();
+    }
+
+    @EventHandler
+    public void onServerReload(ServerResourcesReloadedEvent event) {
+        FishStewPlugin plugin = FishStewPlugin.getInstance();
+        plugin.getLogging().info("Detected server reload. Reloading all custom recipes.");
         plugin.reload();
     }
 

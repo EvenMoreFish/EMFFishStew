@@ -4,6 +4,8 @@ import com.oheers.fish.api.FileUtil;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.evenmorefish.fishstew.FishStewPlugin;
 import org.jspecify.annotations.NonNull;
+import uk.firedev.daisylib.recipe.AbstractConfigRecipe;
+import uk.firedev.daisylib.recipe.RecipeUtil;
 
 import java.io.File;
 import java.util.List;
@@ -43,6 +45,10 @@ public class FishStewManager {
             FishStewItem item = new FishStewItem(file);
             if (item.isDisabled()) {
                 return;
+            }
+            AbstractConfigRecipe<?> recipe = item.getRecipe();
+            if (recipe != null) {
+                item.getRecipe().register();
             }
             FishStewRegistry.getInstance().register(item);
         } catch (InvalidConfigurationException exception) {

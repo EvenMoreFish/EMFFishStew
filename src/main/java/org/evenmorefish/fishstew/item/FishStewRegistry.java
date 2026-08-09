@@ -52,6 +52,11 @@ public class FishStewRegistry implements EMFRegistry<FishStewItem> {
         return registry.size();
     }
 
+    @Override
+    public boolean isEmpty() {
+        return registry.isEmpty();
+    }
+
     public void clear() {
         registry.clear();
     }

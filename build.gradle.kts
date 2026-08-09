@@ -18,6 +18,7 @@ dependencies {
         exclude("de.tr7zw", "item-nbt-api")
         exclude("com.github.Anon8281", "UniversalScheduler")
     }
+    compileOnly(libs.boostedyaml) // Provided by EMF at runtime.
 
     implementation(libs.daisylib)
     implementation(libs.bstats)
