@@ -85,16 +85,13 @@ public final class FishStewPlugin extends JavaPlugin {
             Material material = CommonUtils.getMaterial(s);
             if (material != null) {
                 if (material.isAir()) {
-                    return RecipeChoice.empty();
+                    return null;
                 }
                 return new RecipeChoice.MaterialChoice(material);
             }
             ItemStack item = ItemSerializer.get().deserializeItemAddon(s);
-            if (item == null) {
+            if (item == null || item.isEmpty()) {
                 return null;
-            }
-            if (item.isEmpty()) {
-                return RecipeChoice.empty();
             }
             return new RecipeChoice.ExactChoice(item);
         };
