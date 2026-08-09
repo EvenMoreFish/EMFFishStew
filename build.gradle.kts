@@ -19,7 +19,7 @@ dependencies {
         exclude("com.github.Anon8281", "UniversalScheduler")
     }
 
-    implementation(libs.messagelib)
+    implementation(libs.daisylib)
 }
 
 group = "org.evenmorefish"
@@ -51,7 +51,7 @@ tasks {
         archiveVersion.set(project.version.toString())
         archiveClassifier.set("")
 
-        relocate("uk.firedev.messagelib", "org.evenmorefish.fishstew.libs.messagelib")
+        relocate("uk.firedev.daisylib", "org.evenmorefish.fishstew.libs.daisylib")
     }
     withType<JavaCompile> {
         options.encoding = "UTF-8"

@@ -10,7 +10,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
-import org.checkerframework.checker.units.qual.A;
 import org.evenmorefish.fishstew.config.MessageConfig;
 import org.evenmorefish.fishstew.item.FishStewItem;
 import org.evenmorefish.fishstew.item.FishStewRegistry;

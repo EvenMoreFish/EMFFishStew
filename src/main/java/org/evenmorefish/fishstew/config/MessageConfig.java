@@ -1,23 +1,19 @@
 package org.evenmorefish.fishstew.config;
 
-import com.oheers.fish.api.config.ConfigBase;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.evenmorefish.fishstew.FishStewPlugin;
-import uk.firedev.messagelib.message.ComponentMessage;
-import uk.firedev.messagelib.message.ComponentSingleMessage;
-import uk.firedev.messagelib.replacer.Replacer;
+import uk.firedev.daisylib.config.BasicConfig;
+import uk.firedev.daisylib.messages.message.ComponentMessage;
+import uk.firedev.daisylib.messages.message.ComponentSingleMessage;
 
 @SuppressWarnings("UnstableApiUsage")
-public class MessageConfig extends ConfigBase {
+public class MessageConfig extends BasicConfig {
 
     private static MessageConfig INSTANCE = null;
 
-    private final FishStewConfigLoader loader;
-
     public MessageConfig() {
-        super("messages.yml", "messages.yml", FishStewPlugin.getInstance(), true);
-        this.loader = new FishStewConfigLoader(getConfig());
+        super("messages.yml", "messages.yml", FishStewPlugin.getInstance());
     }
 
     public void init() {
@@ -35,40 +31,37 @@ public class MessageConfig extends ConfigBase {
     }
 
     public @NotNull ComponentSingleMessage getPrefix() {
-        return ComponentMessage.componentMessage(loader, "prefix", "<gray>[FishStew]</gray> ").toSingleMessage();
+        return super.getComponentMessage("prefix", "<gray>[FishStew]</gray> ").toSingleMessage();
     }
 
-    public @NotNull Replacer getPrefixReplacer() {
-        return Replacer.replacer().addReplacement("{prefix}", getPrefix());
+    public @NotNull ComponentMessage<?, ?> getReloaded() {
+        return getComponentMessage("reloaded", "{prefix}<white>Successfully reloaded the plugin.");
     }
 
-    public @NotNull ComponentMessage getReloaded() {
-        return getMessage("reloaded", "{prefix}<white>Successfully reloaded the plugin.");
+    public @NotNull ComponentMessage<?, ?> getStewReceived() {
+        return getComponentMessage("stew-received", "{prefix}<white>You have been given a fish stew.");
     }
 
-    public @NotNull ComponentMessage getStewReceived() {
-        return getMessage("stew-received", "{prefix}<white>You have been given a fish stew.");
-    }
-
-    public @NotNull ComponentMessage getStewGiven(@NotNull Player target) {
-        return getMessage("stew-given", "{prefix}<white>You have given {target} a fish stew.")
+    public @NotNull ComponentMessage<?, ?> getStewGiven(@NotNull Player target) {
+        return getComponentMessage("stew-given", "{prefix}<white>You have given {target} a fish stew.")
             .replace("{target}", target.name());
     }
 
-    public @NotNull ComponentMessage getNotEnoughPlayers() {
-        return getMessage("not-enough-players", "{prefix}<white>There are not enough players online to start the competition.");
+    public @NotNull ComponentMessage<?, ?> getNotEnoughPlayers() {
+        return getComponentMessage("not-enough-players", "{prefix}<white>There are not enough players online to start the competition.");
     }
 
-    public @NotNull ComponentMessage getCompetitionActive() {
-        return getMessage("competition-active", "{prefix}<white>A competition is already active! Please wait until it is over.");
+    public @NotNull ComponentMessage<?, ?> getCompetitionActive() {
+        return getComponentMessage("competition-active", "{prefix}<white>A competition is already active! Please wait until it is over.");
     }
 
-    public @NotNull ComponentMessage getStewInvalid() {
-        return getMessage("stew-invalid", "{prefix}<white>This fish stew is no longer valid.");
+    public @NotNull ComponentMessage<?, ?> getStewInvalid() {
+        return getComponentMessage("stew-invalid", "{prefix}<white>This fish stew is no longer valid.");
     }
 
-    private @NotNull ComponentMessage getMessage(@NotNull String path, @NotNull String def) {
-        return ComponentMessage.componentMessage(loader, path, def).replace(getPrefixReplacer());
+    @Override
+    public @NotNull ComponentMessage<?, ?> getComponentMessage(@NotNull String path, @NotNull Object def) {
+        return super.getComponentMessage(path, def).replace("{prefix}", getPrefix());
     }
 
 }
