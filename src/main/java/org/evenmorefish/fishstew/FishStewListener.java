@@ -66,7 +66,7 @@ public class FishStewListener implements Listener {
     @EventHandler
     public void onEMFReload(EMFPluginReloadEvent event) {
         FishStewPlugin plugin = FishStewPlugin.getInstance();
-        plugin.getLogger().info("Detected EvenMoreFish reload. Reloading...");
+        plugin.getLogging().info("Detected EvenMoreFish reload. Reloading...");
         plugin.reload();
     }
 

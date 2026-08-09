@@ -2,8 +2,8 @@ package org.evenmorefish.fishstew.item;
 
 import com.oheers.fish.api.FileUtil;
 import org.bukkit.configuration.InvalidConfigurationException;
-import org.jetbrains.annotations.NotNull;
 import org.evenmorefish.fishstew.FishStewPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.List;
@@ -46,12 +46,12 @@ public class FishStewManager {
             }
             FishStewRegistry.getInstance().register(item);
         } catch (InvalidConfigurationException exception) {
-            FishStewPlugin.getInstance().getLogger().warning(exception.getMessage());
+            FishStewPlugin.getInstance().getLogging().warn(exception.getMessage());
         }
     }
 
     private void logLoadedItems() {
-        FishStewPlugin.getInstance().getLogger().info(
+        FishStewPlugin.getInstance().getLogging().info(
             "Loaded FishStewManager with " + FishStewRegistry.getInstance().getSize() + " Item(s)."
         );
     }

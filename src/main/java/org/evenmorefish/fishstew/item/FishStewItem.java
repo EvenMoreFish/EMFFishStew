@@ -4,17 +4,16 @@ import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
 import com.oheers.fish.api.config.ConfigBase;
 import com.oheers.fish.api.registry.RegistryItem;
-import com.oheers.fish.competition.CompetitionQueue;
 import com.oheers.fish.competition.configs.CompetitionFile;
 import com.oheers.fish.items.ItemFactory;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.evenmorefish.fishstew.FishStewPlugin;
 import org.evenmorefish.fishstew.utils.Keys;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.List;
@@ -22,6 +21,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
+// TODO switch to BasicConfig after EMF switches to DaisyLib.
 @SuppressWarnings("UnstableApiUsage")
 public class FishStewItem extends ConfigBase implements RegistryItem {
 

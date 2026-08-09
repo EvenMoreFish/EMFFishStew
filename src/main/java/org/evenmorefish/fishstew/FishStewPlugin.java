@@ -3,16 +3,22 @@ package org.evenmorefish.fishstew;
 import com.oheers.fish.api.registry.EMFRegistry;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.evenmorefish.fishstew.metrics.Metrics;
-import org.evenmorefish.fishstew.reward.FishStewRewardType;
-import org.jetbrains.annotations.NotNull;
 import org.evenmorefish.fishstew.command.MainCommand;
 import org.evenmorefish.fishstew.config.MessageConfig;
 import org.evenmorefish.fishstew.item.FishStewManager;
+import org.evenmorefish.fishstew.metrics.Metrics;
+import org.evenmorefish.fishstew.reward.FishStewRewardType;
+import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
+import uk.firedev.daisylib.DaisyLib;
+import uk.firedev.daisylib.logging.ComponentLogging;
+import uk.firedev.daisylib.logging.Logging;
 
 public final class FishStewPlugin extends JavaPlugin {
 
     private static FishStewPlugin INSTANCE;
+
+    private final ComponentLogging logging = Logging.logging(this);
 
     private Metrics metrics;
 
@@ -38,6 +44,7 @@ public final class FishStewPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        DaisyLib.get().init(this);
         this.metrics = new Metrics(this, 28266);
 
         getServer().getPluginManager().registerEvents(new FishStewListener(), this);
@@ -60,6 +67,10 @@ public final class FishStewPlugin extends JavaPlugin {
 
     public void reload() {
         FishStewManager.getInstance().reload();
+    }
+
+    public @NonNull ComponentLogging getLogging() {
+        return this.logging;
     }
 
 }

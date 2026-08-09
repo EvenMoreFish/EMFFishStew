@@ -10,10 +10,10 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 import org.evenmorefish.fishstew.FishStewPlugin;
 import org.evenmorefish.fishstew.config.MessageConfig;
 import org.evenmorefish.fishstew.item.FishStewItem;
+import org.jetbrains.annotations.NotNull;
 
 // Safe to suppress as the same API is stable in modern Paper.
 @SuppressWarnings("UnstableApiUsage")

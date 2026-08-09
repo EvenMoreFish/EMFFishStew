@@ -1,8 +1,8 @@
 package org.evenmorefish.fishstew.config;
 
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 import org.evenmorefish.fishstew.FishStewPlugin;
+import org.jetbrains.annotations.NotNull;
 import uk.firedev.daisylib.config.BasicConfig;
 import uk.firedev.daisylib.messages.message.ComponentMessage;
 import uk.firedev.daisylib.messages.message.ComponentSingleMessage;
