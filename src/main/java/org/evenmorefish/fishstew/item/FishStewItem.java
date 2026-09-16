@@ -3,11 +3,13 @@ package org.evenmorefish.fishstew.item;
 import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.FishUtils;
 import com.oheers.fish.api.registry.RegistryItem;
+import com.oheers.fish.competition.CompetitionManager;
 import com.oheers.fish.competition.configs.CompetitionFile;
 import com.oheers.fish.items.ItemFactory;
-import dev.dejvokep.boostedyaml.YamlDocument;
 import org.bukkit.configuration.ConfigurationSection;
-import uk.firedev.daisylib.config.BasicConfig;
+import org.evenmorefish.fish.libs.boostedyaml.YamlDocument;
+import uk.firedev.daisylib.config.StaticConfig;
+import uk.firedev.daisylib.config.UpdatableConfig;
 import uk.firedev.daisylib.recipe.AbstractConfigRecipe;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -27,7 +29,8 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-public class FishStewItem extends BasicConfig implements RegistryItem {
+@SuppressWarnings("UnstableApiUsage")
+public class FishStewItem extends StaticConfig implements RegistryItem {
 
     private static final Random RANDOM = new Random();
 
@@ -46,7 +49,7 @@ public class FishStewItem extends BasicConfig implements RegistryItem {
         this.factory = ItemFactory.itemFactory(fetchBoostedCopy(file));
 
         List<CompetitionFile> compFiles = getCompetitionIds().stream()
-            .map(EvenMoreFish.getInstance().getCompetitionQueue()::getItem)
+            .map(CompetitionManager.getInstance()::getItem)
             .filter(Objects::nonNull)
             .toList();
         if (compFiles.isEmpty()) {
@@ -56,7 +59,6 @@ public class FishStewItem extends BasicConfig implements RegistryItem {
         this.recipe = loadRecipe();
     }
 
-    // TODO can be removed once EMF is using ConfigurationSection.
     private YamlDocument fetchBoostedCopy(@NonNull File file) {
         try {
             return YamlDocument.create(file);

@@ -1,28 +1,27 @@
 package org.evenmorefish.fishstew;
 
-import com.oheers.fish.api.config.serializer.ItemSerializer;
+import com.oheers.fish.EvenMoreFish;
 import com.oheers.fish.api.registry.EMFRegistry;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.evenmorefish.fishstew.command.MainCommand;
 import org.evenmorefish.fishstew.config.MessageConfig;
 import org.evenmorefish.fishstew.item.FishStewManager;
+import org.evenmorefish.fishstew.recipe.ItemAddonChoiceWrapper;
 import org.evenmorefish.fishstew.reward.FishStewRewardType;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NonNull;
 import uk.firedev.daisylib.DaisyLib;
 import uk.firedev.daisylib.logging.ComponentLogging;
 import uk.firedev.daisylib.logging.Logging;
 import uk.firedev.daisylib.recipe.RecipeUtil;
-import uk.firedev.daisylib.utils.CommonUtils;
+import uk.firedev.daisylib.version.VersionChecker;
 
 public final class FishStewPlugin extends JavaPlugin {
 
     private static FishStewPlugin INSTANCE;
+
+    private static final String MINIMUM_EMF_VERSION = "2.5.0";
 
     private final ComponentLogging logging = Logging.logging(this);
 
@@ -42,8 +41,16 @@ public final class FishStewPlugin extends JavaPlugin {
         return INSTANCE;
     }
 
+    @SuppressWarnings("UnstableApiUsage")
     @Override
     public void onLoad() {
+        String emfVersion = EvenMoreFish.getInstance().getPluginMeta().getVersion();
+        if (VersionChecker.isOlderThan(MINIMUM_EMF_VERSION, emfVersion)) {
+            throw new IllegalStateException(
+                "Installed EMF version " + emfVersion + " is below the required minimum version " + MINIMUM_EMF_VERSION + "."
+            );
+        }
+
         new MessageConfig().init();
         registerCommands();
     }
@@ -81,20 +88,7 @@ public final class FishStewPlugin extends JavaPlugin {
 
     private void initDaisyLib() {
         DaisyLib.get().init(this);
-        RecipeUtil.RECIPE_CHOICE_FETCHER = s -> {
-            Material material = CommonUtils.getMaterial(s);
-            if (material != null) {
-                if (material.isAir()) {
-                    return null;
-                }
-                return new RecipeChoice.MaterialChoice(material);
-            }
-            ItemStack item = ItemSerializer.get().deserializeItemAddon(s);
-            if (item == null || item.isEmpty()) {
-                return null;
-            }
-            return new RecipeChoice.ExactChoice(item);
-        };
+        RecipeUtil.registerRecipeChoice(new ItemAddonChoiceWrapper()); // Allows item addons to be used in recipes.
     }
 
 }

@@ -5,11 +5,10 @@ dependencyResolutionManagement {
         create("libs") {
             // compileOnly dependencies
             library("paper-api", "io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
-            library("evenmorefish", "com.oheers.evenmorefish:even-more-fish-plugin:2.4.4")
-            library("boostedyaml", "dev.dejvokep:boosted-yaml:1.3.7") // Provided by EMF at runtime.
+            library("evenmorefish", "com.oheers.evenmorefish:even-more-fish-plugin:2.5.0-SNAPSHOT")
 
             // implementation dependencies
-            library("daisylib", "uk.firedev:DaisyLib:4.0-SNAPSHOT")
+            library("daisylib", "uk.firedev:DaisyLib:4.2")
 
             // library dependencies
             library("bstats", "org.bstats:bstats-bukkit:3.2.1")

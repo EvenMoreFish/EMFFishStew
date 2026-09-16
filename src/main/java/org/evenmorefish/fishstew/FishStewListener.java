@@ -4,6 +4,7 @@ import com.oheers.fish.api.Logging;
 import com.oheers.fish.api.events.EMFPluginReloadEvent;
 import com.oheers.fish.baits.manager.BaitManager;
 import com.oheers.fish.competition.Competition;
+import com.oheers.fish.competition.CompetitionManager;
 import com.oheers.fish.competition.configs.CompetitionFile;
 import com.oheers.fish.fishing.rods.RodManager;
 import io.papermc.paper.event.server.ServerResourcesReloadedEvent;
@@ -43,7 +44,7 @@ public class FishStewListener implements Listener {
             MessageConfig.getInstance().getStewInvalid().send(player);
             return;
         }
-        if (Competition.isActive()) {
+        if (CompetitionManager.getInstance().isCompetitionActive()) {
             MessageConfig.getInstance().getCompetitionActive().send(player);
             return;
         }

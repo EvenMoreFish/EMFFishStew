@@ -5,6 +5,7 @@ plugins {
 }
 
 repositories {
+    //mavenLocal()
     mavenCentral()
     gradlePluginPortal()
     maven("https://repo.papermc.io/repository/maven-public/")
@@ -14,11 +15,7 @@ repositories {
 
 dependencies {
     compileOnly(libs.paper.api)
-    compileOnly(libs.evenmorefish) {
-        exclude("de.tr7zw", "item-nbt-api")
-        exclude("com.github.Anon8281", "UniversalScheduler")
-    }
-    compileOnly(libs.boostedyaml) // Provided by EMF at runtime.
+    compileOnly(libs.evenmorefish)
 
     implementation(libs.daisylib)
     implementation(libs.bstats)

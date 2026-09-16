@@ -3,12 +3,11 @@ package org.evenmorefish.fishstew.config;
 import org.bukkit.entity.Player;
 import org.evenmorefish.fishstew.FishStewPlugin;
 import org.jspecify.annotations.NonNull;
-import uk.firedev.daisylib.config.BasicConfig;
+import uk.firedev.daisylib.config.UpdatableConfig;
 import uk.firedev.daisylib.messages.message.ComponentMessage;
 import uk.firedev.daisylib.messages.message.ComponentSingleMessage;
 
-@SuppressWarnings("UnstableApiUsage")
-public class MessageConfig extends BasicConfig {
+public class MessageConfig extends UpdatableConfig {
 
     private static MessageConfig INSTANCE = null;
 
@@ -62,6 +61,16 @@ public class MessageConfig extends BasicConfig {
     @Override
     public @NonNull ComponentMessage<?, ?> getComponentMessage(@NonNull String path, @NonNull Object def) {
         return super.getComponentMessage(path, def).replace("{prefix}", getPrefix());
+    }
+
+    @Override
+    public @NonNull Settings getUpdateSettings() {
+        return new Settings();
+    }
+
+    @Override
+    public @NonNull String versionKey() {
+        return "version";
     }
 
 }
