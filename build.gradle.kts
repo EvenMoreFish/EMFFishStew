@@ -22,7 +22,7 @@ dependencies {
 }
 
 group = "org.evenmorefish"
-version = properties["project-version"] as String
+version = project.property("project-version") as String
 description = "An EvenMoreFish addon that adds items to start a fishing contest."
 java.sourceCompatibility = JavaVersion.VERSION_21
 
